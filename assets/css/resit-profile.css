@@ -1,0 +1,62 @@
+.r-user-thumbnail{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom: 20px;
+}
+
+.r-user-thumbnail #r-user-picture{
+    width: 120px;
+    height: 120px;
+    border-radius: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.r-btn-login {
+	width: 200px;
+	background: var(--resit-color-light-blue);
+	outline: none;
+	border: none;
+	border-radius: 20px;
+	text-align: center;
+	font-size: 1.2rem;
+	text-decoration: none;
+	padding: 7px 10px;
+	color: var(--resit-color-white);
+	cursor: pointer;
+	display: inline-block;
+}
+
+.r-btn-daftar {
+	width: 200px;
+	background: var(--resit-color-light-blue);
+	outline: none;
+	border: none;
+	border-radius: 20px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 1.2rem;
+	padding: 7px 10px;
+	color: var(--resit-color-white);
+	cursor: pointer;
+	display: inline-block;
+}
+
+.r-profile-button-center {
+	padding-top: 6px;
+	padding-bottom: 6px;
+	text-align: center;
+}
+
+.r-user-message {
+	font-weight: bold;
+	color: var(--resit-color-black);
+	font-size: 1.3rem;
+	padding-left: 20px;
+	padding-right: 20px;
+	text-align: center;
+    margin-top: 80px;
+    font-style: italic;
+}

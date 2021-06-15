@@ -1,0 +1,53 @@
+
+	.judul-menu{
+		margin-left: 10px;
+	}
+	.menu-kanan{
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 8px 13px 8px 5px;
+	}
+	.menu-kanan i{
+		font-size: 17px;
+		z-index: 300;
+	}
+	.menu-kanan a{
+		padding-right: 2px;
+		padding-left: 2px;
+		z-index: 300;
+	}
+	.dd-item .dd-handle{
+		font-size: 14px;
+		padding: 8px 15px;
+		height: 40px !important;
+	}
+	.dd-item .dd-expand{
+		font-size: 14px;
+		margin: 8px 0;
+	}
+	.dd-item .dd-collapse{
+		font-size: 14px;
+		margin: 8px 0;
+	}
+	.dd-item .menu-kanan{
+		margin:3px 0;
+	}
+	.dd-false{
+		background: #000 !important;
+		color: #FFF;
+	}
+	.dd-false a, .dd-false span.judul-menu, .dd-false i{
+		color: #FFF;
+	}
+	.dd-item{
+		cursor: move;
+	}
+	.dd-button-action{
+		border: none;
+		background: none;
+		outline: none;
+	}
+	menu-false a, .menu-false span.judul-menu, .menu-false i{
+		color: #FFF !important;
+	}
