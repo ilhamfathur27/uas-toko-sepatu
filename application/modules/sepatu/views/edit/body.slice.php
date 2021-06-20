@@ -3,25 +3,25 @@
     <h2>{{ $title }}</h2>
   </div>
   <div class="card-body">
-    <form method="POST" action="{{ $api_sepatu }}" id="formSepatu">
+    <form method="POST" action="{{ $api_sepatu }}" id="formSepatu" primary-key="{{ $id_sepatu }}">
       <div class="form-group">
         <label>Nama Sepatu</label>
-        <input type="text" name="nama" class="form-control" placeholder="Nama Sepatu">
+        <input type="text" name="nama" class="form-control" placeholder="Nama Sepatu" value="{{ $sepatu['nama'] }}">
         <span class="mt-2 d-block text-danger input-message"></span>
       </div>
       <div class="form-group">
         <label>Deskripsi</label>
-        <textarea name="deskripsi" class="form-control" rows="4" placeholder="Deskripsi"></textarea>
+        <textarea name="deskripsi" class="form-control" rows="4" placeholder="Deskripsi">{{ $sepatu['deskripsi'] }}</textarea>
         <span class="mt-2 d-block text-danger input-message"></span>
       </div>
       <div class="form-group">
         <label>Harga</label>
-        <input type="number" name="harga" class="form-control" placeholder="Harga">
+        <input type="number" name="harga" class="form-control" placeholder="Harga" value="{{ $sepatu['harga'] }}">
         <span class="mt-2 d-block text-danger input-message"></span>
       </div>
       <div class="form-group">
         <label>Stok</label>
-        <input type="number" name="stok" class="form-control" placeholder="Stok">
+        <input type="number" name="stok" class="form-control" placeholder="Stok" value="{{ $sepatu['stok'] }}">
         <span class="mt-2 d-block text-danger input-message"></span>
       </div>
       <div class="form-group">
@@ -31,7 +31,7 @@
       </div>
       <div class="form-footer pt-4 pt-5 mt-4 border-top">
         <button type="reset" class="btn btn-secondary btn-default">Batal</button>
-        <button type="submit" class="btn btn-primary btn-default">Tambah</button>
+        <button type="submit" class="btn btn-primary btn-default">Update</button>
       </div>
     </form>
   </div>
@@ -40,6 +40,7 @@
 $("#formSepatu").submit(function(event){
   event.preventDefault();
   const myNode = $(this);
+  const primaryKey = myNode.attr("primary-key");
   const formMethod = myNode.attr("method");
   const formAction = myNode.attr("action");
   let formData = new FormData(myNode[0]);

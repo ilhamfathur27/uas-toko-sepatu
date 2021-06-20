@@ -23,8 +23,19 @@ class Sepatu extends MY_Controller
   {
     // $data_sepatu = $this->m_sepatu->detail($and_where);
     $data['title'] = "TAMBAH SEPATU";
-    $data['api_add_sepatu'] = site_url("api/sepatu/create");
+    $data['api_sepatu'] = site_url("api/sepatu/create");
     $this->admin('create/body', $data);  
+  }
+
+  function edit($id_sepatu = "")
+  {
+    $where['id_sepatu'] = $id_sepatu;
+    $detail_sepatu = $this->m_sepatu->detail($where);
+    $data['title'] = "EDIT SEPATU";
+    $data['id_sepatu'] = "EDIT SEPATU";
+    $data['api_sepatu'] = site_url("api/sepatu/edit");
+    $data['sepatu'] = isset($detail_sepatu[0]) ? $detail_sepatu[0] : $detail_sepatu;
+    $this->admin('edit/body', $data);
   }
 
   function list()

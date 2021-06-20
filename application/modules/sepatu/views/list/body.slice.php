@@ -25,7 +25,7 @@
                         <td>{{ $sepatu['stok'] }}</td>
                         <td>
                             <a href="{{ site_url("sepatu/edit/".$sepatu['id_sepatu']) }}" class="btn btn-sm btn-primary">EDIT</a>
-                            <button type="button" class="btn btn-sm btn-danger">DELETE</button>
+                            <button type="button" class="btn btn-sm btn-danger" primary-key="{{ $sepatu['id_sepatu'] }}">DELETE</button>
                         </td>
                     </tr>
                     @php

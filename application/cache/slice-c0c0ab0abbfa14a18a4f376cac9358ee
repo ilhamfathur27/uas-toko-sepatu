@@ -1,9 +1,9 @@
-a:3:{s:4:"time";i:1624167210;s:3:"ttl";i:3600;s:4:"data";s:2891:"<div class="card card-default">
+a:3:{s:4:"time";i:1624194864;s:3:"ttl";i:3600;s:4:"data";s:2885:"<div class="card card-default">
   <div class="card-header card-header-border-bottom">
-    <h2>Tambah Sepatu</h2>
+    <h2><?php echo  $title ; ?></h2>
   </div>
   <div class="card-body">
-    <form method="POST" action="<?php echo  $api_add_sepatu ; ?>" id="formTambahSepatu">
+    <form method="POST" action="<?php echo  $api_sepatu ; ?>" id="formSepatu">
       <div class="form-group">
         <label>Nama Sepatu</label>
         <input type="text" name="nama" class="form-control" placeholder="Nama Sepatu">
@@ -37,7 +37,7 @@ a:3:{s:4:"time";i:1624167210;s:3:"ttl";i:3600;s:4:"data";s:2891:"<div class="car
   </div>
 </div>
 <script>
-$("#formTambahSepatu").submit(function(event){
+$("#formSepatu").submit(function(event){
   event.preventDefault();
   const myNode = $(this);
   const formMethod = myNode.attr("method");
