@@ -29,7 +29,7 @@
               <td style="width: 730px">
                 <div class="media">
                   <div class="d-flex">
-                    <img src="assets/img/arrivel/arrivel_1.png" alt="">
+                    <img src="{{ base_url('uploads/images/sepatu/'.$keranjang['foto']) }}" width="100px" alt="">
                   </div>
                   <div class="media-body">
                     <p>{{ $keranjang['nama_sepatu'] }}</p>
@@ -64,9 +64,30 @@
           </tbody>
         </table>
         <div class="checkout_btn_inner float-right">
-          <a class="btn_1 checkout_btn_1" href="#">CHECKOUT</a>
+          <button type="button" class="btn_1 checkout_btn_1" data-toggle="modal" data-target="#exampleModal">CHECKOUT</button>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">CHECKOUT PRODUK</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
+        <button type="submit" class="btn btn-primary">PROCESS CHECKOUT</button>
+      </div>
+    </div>
+  </div>
+</div>

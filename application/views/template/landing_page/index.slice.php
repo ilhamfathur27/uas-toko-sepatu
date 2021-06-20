@@ -19,6 +19,21 @@
     <link rel="stylesheet" href="{{ base_url('assets/landing-page/css/nice-select.css') }}" />
     <link rel="stylesheet" href="{{ base_url('assets/landing-page/css/style.css') }}" />
     <link href="{{ base_url('assets/admin/plugins/toaster/toastr.min.css') }}" rel="stylesheet" />
+    <link href="{{ base_url('assets/images/icon.png') }}" rel="shortcut icon" />
+    <style>
+      .modal-dialog {
+        min-height: calc(100vh - 60px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: auto;
+      }
+      @media(max-width: 768px) {
+        .modal-dialog {
+          min-height: calc(100vh - 20px);
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="preloader-active">
@@ -95,7 +110,7 @@
                           <li><a href="{{ site_url('products') }}">Product List</a></li>
                           <li><a href="{{ site_url('contact') }}">Contact</a></li>
                           @if(user('user_login'))
-                            <li><a href="{{ site_url('checkout') }}">Checkout</a></li>
+                            <li><a href="{{ site_url('transaksi') }}">Transaksi</a></li>
                           @endif
                         </ul>
                       </nav>
@@ -130,9 +145,15 @@
                       @endif
 
                       @if(user('user_login'))
-                        <li class="d-none d-lg-block">
-                          <a href="{{ site_url('logout') }}" class="btn header-btn">Logout</a>
-                        </li>
+                        @if(user('role') == 'admin')
+                          <li class="d-none d-lg-block">
+                            <a href="{{ site_url('dashboard') }}" class="btn header-btn">DASHBOARD</a>
+                          </li>
+                        @else
+                          <li class="d-none d-lg-block">
+                            <a href="{{ site_url('logout') }}" class="btn header-btn">Logout</a>
+                          </li>
+                        @endif
                       @else
                         <li class="d-none d-lg-block">
                           <a href="{{ site_url('login') }}" class="btn header-btn">Login</a>

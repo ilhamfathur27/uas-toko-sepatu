@@ -105,7 +105,7 @@
       <!-- Section Tittle -->
       <div class="col-12">
         <div class="section-tittle mb-30">
-          <h2>Latest Products</h2>
+          <h2>Best Products</h2>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-a:3:{s:4:"time";i:1624156521;s:3:"ttl";i:3600;s:4:"data";s:13957:"<!DOCTYPE html>
+a:3:{s:4:"time";i:1624160075;s:3:"ttl";i:3600;s:4:"data";s:14746:"<!DOCTYPE html>
 <html class="no-js" lang="zxx">
   <head>
     <meta charset="utf-8" />
@@ -19,6 +19,21 @@ a:3:{s:4:"time";i:1624156521;s:3:"ttl";i:3600;s:4:"data";s:13957:"<!DOCTYPE html
     <link rel="stylesheet" href="<?php echo  base_url('assets/landing-page/css/nice-select.css') ; ?>" />
     <link rel="stylesheet" href="<?php echo  base_url('assets/landing-page/css/style.css') ; ?>" />
     <link href="<?php echo  base_url('assets/admin/plugins/toaster/toastr.min.css') ; ?>" rel="stylesheet" />
+    <link href="<?php echo  base_url('assets/images/icon.png') ; ?>" rel="shortcut icon" />
+    <style>
+      .modal-dialog {
+        min-height: calc(100vh - 60px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: auto;
+      }
+      @media(max-width: 768px) {
+        .modal-dialog {
+          min-height: calc(100vh - 20px);
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="preloader-active">
@@ -95,7 +110,7 @@ a:3:{s:4:"time";i:1624156521;s:3:"ttl";i:3600;s:4:"data";s:13957:"<!DOCTYPE html
                           <li><a href="<?php echo  site_url('products') ; ?>">Product List</a></li>
                           <li><a href="<?php echo  site_url('contact') ; ?>">Contact</a></li>
                           <?php if(user('user_login')): ?>
-                            <li><a href="<?php echo  site_url('checkout') ; ?>">Checkout</a></li>
+                            <li><a href="<?php echo  site_url('transaksi') ; ?>">Transaksi</a></li>
                           <?php endif; ?>
                         </ul>
                       </nav>
@@ -130,9 +145,15 @@ a:3:{s:4:"time";i:1624156521;s:3:"ttl";i:3600;s:4:"data";s:13957:"<!DOCTYPE html
                       <?php endif; ?>
 
                       <?php if(user('user_login')): ?>
-                        <li class="d-none d-lg-block">
-                          <a href="<?php echo  site_url('logout') ; ?>" class="btn header-btn">Logout</a>
-                        </li>
+                        <?php if(user('role') == 'admin'): ?>
+                          <li class="d-none d-lg-block">
+                            <a href="<?php echo  site_url('dashboard') ; ?>" class="btn header-btn">DASHBOARD</a>
+                          </li>
+                        <?php else: ?>
+                          <li class="d-none d-lg-block">
+                            <a href="<?php echo  site_url('logout') ; ?>" class="btn header-btn">Logout</a>
+                          </li>
+                        <?php endif; ?>
                       <?php else: ?>
                         <li class="d-none d-lg-block">
                           <a href="<?php echo  site_url('login') ; ?>" class="btn header-btn">Login</a>
