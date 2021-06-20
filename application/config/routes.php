@@ -50,9 +50,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-$route['translate_uri_dashes'] 		= TRUE;
-$route['default_controller'] 		= 'kampret';
-$route['404_override'] 				= '';
+$route['translate_uri_dashes'] = TRUE;
+$route['default_controller'] = 'home';
+$route['404_override'] = '';
 
 
 // $route['404'] 						= 'error/code';
+$route['login'] = 'auth/login';
+$route['register'] = 'auth/register';
+$route['logout'] = 'api/auth/logout';

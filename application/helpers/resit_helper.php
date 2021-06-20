@@ -187,13 +187,13 @@ if ( ! function_exists('select_option')){
 					}
 
 					if ($html != '') {
-						$ .= '<option value="' . $row->$value . '">' . str_replace("'", " ", implode(' - ', $label_multiple)) . '</option>';
+						$option .= '<option value="' . $row->$value . '">' . str_replace("'", " ", implode(' - ', $label_multiple)) . '</option>';
 					} else {
 						$option[$row->$value] = str_replace("'", " ", implode(' - ', $label_multiple));
 					}
 				} else {
 					if ($html != '') {
-						$ .= '<option value="' . $row->$value . '">' . str_replace("'", " ", $row->$label) . '</option>';
+						$option .= '<option value="' . $row->$value . '">' . str_replace("'", " ", $row->$label) . '</option>';
 					} else {
 						$option[$row->$value] = str_replace("'", " ", $row->$label);
 					}
@@ -398,7 +398,7 @@ if ( ! function_exists('huruf_acak')){
 		$max    = ceil($length / 32);
 		$random = '';
 		for ($i = 0; $i < $max; $i++) {
-			$ .= md5(microtime(true) . mt_rand(10000, 90000));
+			$random .= md5(microtime(true) . mt_rand(10000, 90000));
 		}
 		return substr($random, 0, $length);
 	}
@@ -435,6 +435,12 @@ if ( ! function_exists('huruf_depan_besar')){
 		$text = ucwords($text);
 		return $text;
 	}
+}
+
+function user($key = ""){
+	$CI =& get_instance();
+	$data_session = empty($key) ? $CI->session->userdata() : $CI->session->userdata($key);
+	return $data_session;
 }
 
 ?>

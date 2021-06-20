@@ -27,7 +27,7 @@ $http = 'http' . ((isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 
 $root = $http.$_SERVER['HTTP_HOST'];
 $root .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
 
-$config['base_url'] = "http://localhost/ttc-mobile/";
+$config['base_url'] = $root;
 
 /*
 |--------------------------------------------------------------------------
