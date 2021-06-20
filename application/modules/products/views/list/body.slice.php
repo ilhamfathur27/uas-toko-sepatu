@@ -31,6 +31,10 @@
             </div>
             @endforeach
         </div>
+        @if(empty($data_sepatu))
+            <h1 class="text-center">SEPATU TIDAK DITEMUKAN</h1>
+            <h3 class="text-center">Coba gunakan keyword lain</h3>
+        @endif
         <!-- <div class="load_more_btn text-center">
             <button type="button" class="btn_3" onclick="loadMoreSepatu()">Load More</button>
         </div> -->

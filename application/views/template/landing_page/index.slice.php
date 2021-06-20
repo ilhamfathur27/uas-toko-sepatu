@@ -81,7 +81,7 @@
                 <div class="col-auto">
                   <div class="logo">
                     <a href="{{ site_url() }}">
-                      <img src="{{ base_url('assets/landing-page/img/logo/logo.png') }}" alt=""/>
+                      <img src="{{ base_url('assets/images/logo.png') }}" width="230px" alt=""/>
                     </a>
                   </div>
                 </div>
@@ -107,12 +107,14 @@
                     >
                       <li class="d-none d-xl-block">
                         <div class="form-box f-right">
-                          <input
-                            type="text"
-                            name="Search"
-                            placeholder="Search products"
-                          />
-                          <div class="search-icon">
+                          <form method="GET" action="{{ site_url("products") }}">
+                            <input
+                              type="text"
+                              name="s"
+                              placeholder="Search products"
+                            />
+                          </form>
+                        <div class="search-icon">
                             <i class="fas fa-search special-tag"></i>
                           </div>
                         </div>
@@ -164,7 +166,7 @@
                   <!-- logo -->
                   <div class="footer-logo">
                     <a href="index.html">
-                      <img src="{{ base_url('assets/landing-page/img/logo/logo2_footer.png') }}" alt=""/>
+                      <img src="{{ base_url('assets/images/logo.png') }}" width="100%" alt=""/>
                     </a>
                   </div>
                   <div class="footer-tittle">

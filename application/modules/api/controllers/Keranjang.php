@@ -154,11 +154,11 @@ class Keranjang extends API_WithoutAuth
 					$create = false;
 					// Melakukan kondisi jika inputan sudah ada
 					$where_produk['id_sepatu'] = $input['id_sepatu'];
+					$where_produk['id_user'] = user('id_user');
 					$cek_keberadaan_data = get_count($this->master_table, $where_produk);
 					if($cek_keberadaan_data > 0){
 						unset($input['id_user']);
 						unset($input['id_sepatu']);
-						$where_produk['id_user'] = user('id_user');
 						$create = $this->m_keranjang->update_data($input, $where_produk); //| Melakukan Update
 					}else{
 						$create = $this->m_keranjang->create_data($input); //| Melakukan Input data
