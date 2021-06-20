@@ -29,22 +29,11 @@
       href="{{ base_url('assets/admin/plugins/daterangepicker/daterangepicker.css') }}"
       rel="stylesheet"
     />
-
-    <!-- SLEEK CSS -->
     <link id="sleek-css" rel="stylesheet" href="{{ base_url('assets/admin/css/sleek.css') }}" />
-
-    <!-- FAVICON -->
     <link href="{{ base_url('assets/images/icon.png') }}" rel="shortcut icon" />
-
-    <!--
-HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
--->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <script src="{{ base_url('assets/admin/plugins/nprogress/nprogress.js') }}"></script>
+    
+    <script src="{{ base_url('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
   </head>
 
   <body class="sidebar-fixed sidebar-dark header-light header-fixed" id="body">
@@ -197,7 +186,6 @@ HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCn8TFXGg17HAUcNpkwtxxyT9Io9B_NcM"
       defer
     ></script>
-    <script src="{{ base_url('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ base_url('assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ base_url('assets/admin/plugins/toaster/toastr.min.js') }}"></script>
     <script src="{{ base_url('assets/admin/plugins/slimscrollbar/jquery.slimscroll.min.js') }}"></script>

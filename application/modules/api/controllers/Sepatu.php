@@ -28,14 +28,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 **|
 **|==============================================================================|*/
 
-class Users extends API_Controller 
+class Sepatu extends API_Controller 
 {
-	private $master_table = 'ttc_r_notifications';
+	private $master_table = 'sepatu';
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->model('master_model');
-		$this->load->model('m_notifications');
+		$this->load->model('attach_model');
+		$this->load->model('m_sepatu');
 	}
 
 	function index($type = '', $param_id = '')
@@ -60,16 +61,16 @@ class Users extends API_Controller
 		$page = $page <= 1 ? floor(( $offset + $limit ) / $limit) : $page;
 		
 		//| 	Auto Create Variable ( Bulk with prefix $i_ )
-		$v_input_list = array('notification_id','user_id','message','created_at','read','link');
+		$v_input_list = array('id_sepatu', 'nama', 'harga', 'deskripsi', 'stok', 'terjual', 'foto', 'created_at');
 		eval(ac_input_variabel($v_input_list));
 
 		//| 	Auto Create Variable for Input Post ( Bulk )
-		$v_post_list = array('user_id','message','read','link');
+		$v_post_list = array('nama','harga','deskripsi','stok', 'foto');
 		eval(ac_input_post($v_post_list));
 		
 		//| 	Deklarasi Array $input untuk inject ke database
-		$input['notification_id'] = id_generator(6);
 		$input['created_at'] = date_now();
+		$input['terjual'] = 0;
 		
 		/*|=========================================================|
 		**| 	Jika ada pertanyaan :
@@ -80,26 +81,26 @@ class Users extends API_Controller
 		**| 	untuk bulk otomatis dibawah 
 		**|=========================================================|*/
 
-		//| 	Kondisi input field user_id
-		if(!empty($post_input['user_id'])){
-			$input['user_id'] = $post_input['user_id'];
+		//| 	Kondisi input field nama
+		if(!empty($post_input['nama'])){
+			$input['nama'] = $post_input['nama'];
 		}
 		
-		//| 	Kondisi input field message
-		if(!empty($post_input['message'])){
-			$input['message'] = $post_input['message'];
+		//| 	Kondisi input field harga
+		if(!empty($post_input['harga'])){
+			$input['harga'] = $post_input['harga'];
 		}
 		
-		//| 	Kondisi input field read
-		if(!empty($post_input['read'])){
-			$input['read'] = boolean_input($post_input['read']);
+		//| 	Kondisi input field deskripsi
+		if(!empty($post_input['deskripsi'])){
+			$input['deskripsi'] = $post_input['deskripsi'];
 		}
 		
-		//| 	Kondisi input field link
-		if(!empty($post_input['link'])){
-			$input['link'] = $post_input['link'];
+		//| 	Kondisi input field stok
+		if(!empty($post_input['stok'])){
+			$input['stok'] = $post_input['stok'];
 		}
-
+		
 		//| 	Membuat Kondisi Untuk RestFull API
 		switch ($type)
     {
@@ -108,7 +109,7 @@ class Users extends API_Controller
 				$response_pagging = false;
 				if (!empty($param_id)){
 					$and_where['a.notification_id'] = $param_id;
-					$eksekusi_query_detail = $this->m_notifications->detail($and_where);
+					$eksekusi_query_detail = $this->m_sepatu->detail($and_where);
 					if (is_array($eksekusi_query_detail)){
 						if (count($eksekusi_query_detail) > 0){
 							$api_status = TRUE;
@@ -132,7 +133,7 @@ class Users extends API_Controller
 					$cek_keberadaan_data = get_count($this->master_table, $and_where);
 				}
 				if ($cek_keberadaan_data > 0){
-					$hapus_data = $this->m_notifications->delete_data($and_where);
+					$hapus_data = $this->m_sepatu->delete_data($and_where);
 					if ($hapus_data){
 						$api_status = TRUE;
 						$api_code = 205;
@@ -164,13 +165,19 @@ class Users extends API_Controller
 				**| 	Catatan : 
 				**| 	Terkadang validasi Create beda dengan Update 
 				**|=========================================================|*/
-				$this->form_validation->set_rules($i_user_id, 'ID User', 'required|strip_tags|trim|max_length[100]');
-				$this->form_validation->set_rules($i_message, 'Message', 'required|strip_tags|trim|min_length[3]');
-				$this->form_validation->set_rules($i_read, 'Read', 'trim|in_list[0,1]');
-				$this->form_validation->set_rules($i_link, 'Link', 'required|valid_url|trim');
+				$this->form_validation->set_rules($i_nama, 'Nama Sepatu', 'required|strip_tags|trim|max_length[200]');
+				$this->form_validation->set_rules($i_harga, 'Harga', 'required|strip_tags|trim|numeric|max_length[100]');
+				$this->form_validation->set_rules($i_deskripsi, 'Deskripsi', 'required|strip_tags|trim|max_length[100]');
+				$this->form_validation->set_rules($i_stok, 'Stok', 'required|strip_tags|trim|numeric');
 				
-				if($this->form_validation->run() == TRUE){ //| Jika inputan sesuai Peraturan Validasi
-					$create = $this->m_notifications->create_data($input); //| Melakukan Input data
+				$upload_thumbnail	= $this->attach_model->attach_thumbnail($i_foto);
+				if($this->form_validation->run()){ //| Jika inputan sesuai Peraturan Validasi
+					$upload_thumbnail	= $this->attach_model->attach_thumbnail($i_foto);
+					if($upload_thumbnail[0]){
+						$input['foto'] = $upload_thumbnail[1];
+					}
+					
+					$create = $this->m_sepatu->create_data($input); //| Melakukan Input data
 					if($create){
 						$api_status = TRUE;
 						$api_code = 201;
@@ -215,7 +222,7 @@ class Users extends API_Controller
 			 	if(!empty($param_id)){ //| Jika ID untuk Update tidak kosong, maka lakukan Code dibawah
 					if($this->form_validation->run() == TRUE){ //| Jika inputan sesuai Peraturan Validasi
 						$and_where['notification_id'] = $param_id; //| Where Untuk Update
-						$update = $this->m_notifications->update_data($input, $and_where); //| Melakukan Update
+						$update = $this->m_sepatu->update_data($input, $and_where); //| Melakukan Update
 						if($update){
 							$api_status = TRUE;
 							$api_code = 200;
@@ -247,8 +254,8 @@ class Users extends API_Controller
 				$api_offset = $offset;
         $api_page = $page;
         
-				$eksekusi_query = $this->m_notifications->list($limit, $offset, $and_where, null, $search)->get()->result_array();
-				$api_total_data = $this->m_notifications->total($and_where, null, $search);
+				$eksekusi_query = $this->m_sepatu->list($limit, $offset, $and_where, null, $search)->get()->result_array();
+				$api_total_data = $this->m_sepatu->total($and_where, null, $search);
         $api_total_page = jumlah_page($api_limit, $api_total_data);
         
         if($page > 0 && $page <= $api_total_page)

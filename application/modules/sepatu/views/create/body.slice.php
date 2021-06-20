@@ -3,30 +3,31 @@
     <h2>Tambah Sepatu</h2>
   </div>
   <div class="card-body">
-    <form method="POST" action="{{ $api_add_sepatu }}">
+    <form method="POST" action="{{ $api_add_sepatu }}" id="formTambahSepatu">
       <div class="form-group">
         <label>Nama Sepatu</label>
         <input type="text" name="nama" class="form-control" placeholder="Nama Sepatu">
-        <span class="mt-2 d-block text-danger"></span>
+        <span class="mt-2 d-block text-danger input-message"></span>
       </div>
       <div class="form-group">
         <label>Deskripsi</label>
         <textarea name="deskripsi" class="form-control" rows="4" placeholder="Deskripsi"></textarea>
-        <span class="mt-2 d-block text-danger"></span>
+        <span class="mt-2 d-block text-danger input-message"></span>
       </div>
       <div class="form-group">
         <label>Harga</label>
         <input type="number" name="harga" class="form-control" placeholder="Harga">
-        <span class="mt-2 d-block text-danger"></span>
+        <span class="mt-2 d-block text-danger input-message"></span>
       </div>
       <div class="form-group">
         <label>Stok</label>
         <input type="number" name="stok" class="form-control" placeholder="Stok">
-        <span class="mt-2 d-block text-danger"></span>
+        <span class="mt-2 d-block text-danger input-message"></span>
       </div>
       <div class="form-group">
         <label>Foto</label>
         <input type="file" name="foto" class="form-control-file">
+        <span class="mt-2 d-block text-danger input-message"></span>
       </div>
       <div class="form-footer pt-4 pt-5 mt-4 border-top">
         <button type="reset" class="btn btn-secondary btn-default">Batal</button>
@@ -35,3 +36,43 @@
     </form>
   </div>
 </div>
+<script>
+$("#formTambahSepatu").submit(function(event){
+  event.preventDefault();
+  const myNode = $(this);
+  const formMethod = myNode.attr("method");
+  const formAction = myNode.attr("action");
+  let formData = new FormData(myNode[0]);
+
+  $.ajax({
+    type          : formMethod,
+    url           : formAction,
+    enctype       : "multipart/form-data",
+    data          : formData,
+    processData   : false,
+    cache         : false,
+    contentType   : false,
+    dataType      : "JSON",
+    success       : function(response){
+      if (response.status) {
+        toastr.info(response.message);
+        myNode.find(`span.input-message`).html();
+        myNode[0].reset();
+      } else {
+        toastr.warning(response.message);
+        const errorData = response.error;
+        errorData.forEach((item) => {
+          myNode.find(`[name="${item.name}"]`).next().html(item.message);
+        })
+      }
+    },
+    error         : function(response){
+      toastr.error('Maaf, terjadi kesalhan, silahkan cek konsol anda');
+    },
+    complete      : function() {
+      submitButton.html(submitText);
+      submitButton.prop("disabled", false);
+    }
+  });
+});
+</script>
