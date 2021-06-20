@@ -1,4 +1,4 @@
-a:3:{s:4:"time";i:1624149998;s:3:"ttl";i:3600;s:4:"data";s:33298:"
+a:3:{s:4:"time";i:1624151799;s:3:"ttl";i:3600;s:4:"data";s:25353:"
 <!-- slider Area Start -->
 <div class="slider-area">
   <!-- Mobile Menu -->
@@ -95,60 +95,9 @@ a:3:{s:4:"time";i:1624149998;s:3:"ttl";i:3600;s:4:"data";s:33298:"
   </div>
 </div>
 <!-- slider Area End-->
-<!-- Category Area Start-->
-<section class="category-area section-padding30">
-  <div class="container-fluid">
-    <!-- Section Tittle -->
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="section-tittle text-center mb-85">
-          <h2>Shop by Category</h2>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xl-4 col-lg-6">
-        <div class="single-category mb-30">
-          <div class="category-img">
-            <img src="<?php echo  base_url('assets/landing-page/img/categori/cat1.jpg') ; ?>" alt="" />
-            <div class="category-caption">
-              <h2>Owmen`s</h2>
-              <span class="best"><a href="#">Best New Deals</a></span>
-              <span class="collection">New Collection</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-4 col-lg-6">
-        <div class="single-category mb-30">
-          <div class="category-img text-center">
-            <img src="<?php echo  base_url('assets/landing-page/img/categori/cat2.jpg') ; ?>" alt="" />
-            <div class="category-caption">
-              <span class="collection">Discount!</span>
-              <h2>Winter Cloth</h2>
-              <p>New Collection</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-4 col-lg-6">
-        <div class="single-category mb-30">
-          <div class="category-img">
-            <img src="<?php echo  base_url('assets/landing-page/img/categori/cat3.jpg') ; ?>" alt="" />
-            <div class="category-caption">
-              <h2>Man`s Cloth</h2>
-              <span class="best"><a href="#">Best New Deals</a></span>
-              <span class="collection">New Collection</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- Category Area End-->
+
 <!-- Latest Products Start -->
-<section class="latest-product-area padding-bottom">
+<section class="latest-product-area padding-bottom section-padding30">
   <div class="container">
     <div
       class="row product-btn d-flex justify-content-end align-items-end"
@@ -170,153 +119,32 @@ a:3:{s:4:"time";i:1624149998;s:3:"ttl";i:3600;s:4:"data";s:33298:"
         aria-labelledby="nav-home-tab"
       >
         <div class="row">
-          <div class="col-xl-4 col-lg-4 col-md-6">
-            <div class="single-product mb-60">
-              <div class="product-img">
-                <img src="<?php echo  base_url('assets/landing-page/img/categori/product1.png') ; ?>" alt="" />
-                <div class="new-product">
-                  <span>New</span>
+          <?php foreach($data_sepatu as $sepatu): ?>
+            <div class="col-xl-4 col-lg-4 col-md-6">
+              <div class="single-product mb-60">
+                <div class="product-img">
+                  <a href="<?php echo  site_url('products/detail/'.$sepatu['id_sepatu']) ; ?>">
+                    <img src="<?php echo  base_url('uploads/images/sepatu/'.$sepatu['foto']) ; ?>" alt="" />
+                  </a>
+                  <div class="new-product">
+                    <span>BEST SELLER</span>
+                  </div>
                 </div>
-              </div>
-              <div class="product-caption">
-                <div class="product-ratting">
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star low-star"></i>
-                  <i class="far fa-star low-star"></i>
-                </div>
-                <h4><a href="#">Green Dress with details</a></h4>
-                <div class="price">
-                  <ul>
-                    <li>$40.00</li>
-                    <li class="discount">$60.00</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-6">
-            <div class="single-product mb-60">
-              <div class="product-img">
-                <img src="<?php echo  base_url('assets/landing-page/img/categori/product2.png') ; ?>" alt="" />
-              </div>
-              <div class="product-caption">
-                <div class="product-ratting">
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star low-star"></i>
-                  <i class="far fa-star low-star"></i>
-                </div>
-                <h4><a href="#">Green Dress with details</a></h4>
-                <div class="price">
-                  <ul>
-                    <li>$40.00</li>
-                    <li class="discount">$60.00</li>
-                  </ul>
+                <div class="product-caption">
+                  <h4>
+                    <a href="<?php echo  site_url('products/detail/'.$sepatu['id_sepatu']) ; ?>">
+                      <?php echo  $sepatu['nama'] ; ?>
+                    </a>
+                  </h4>
+                  <div class="price">
+                    <ul>
+                      <li>Rp. <?php echo  $sepatu['harga'] ; ?></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-6">
-            <div class="single-product mb-60">
-              <div class="product-img">
-                <img src="<?php echo  base_url('assets/landing-page/img/categori/product3.png') ; ?>" alt="" />
-                <div class="new-product">
-                  <span>New</span>
-                </div>
-              </div>
-              <div class="product-caption">
-                <div class="product-ratting">
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star low-star"></i>
-                  <i class="far fa-star low-star"></i>
-                </div>
-                <h4><a href="#">Green Dress with details</a></h4>
-                <div class="price">
-                  <ul>
-                    <li>$40.00</li>
-                    <li class="discount">$60.00</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-6">
-            <div class="single-product mb-60">
-              <div class="product-img">
-                <img src="<?php echo  base_url('assets/landing-page/img/categori/product4.png') ; ?>" alt="" />
-              </div>
-              <div class="product-caption">
-                <div class="product-ratting">
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star low-star"></i>
-                  <i class="far fa-star low-star"></i>
-                </div>
-                <h4><a href="#">Green Dress with details</a></h4>
-                <div class="price">
-                  <ul>
-                    <li>$40.00</li>
-                    <li class="discount">$60.00</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-6">
-            <div class="single-product mb-60">
-              <div class="product-img">
-                <img src="<?php echo  base_url('assets/landing-page/img/categori/product5.png') ; ?>" alt="" />
-              </div>
-              <div class="product-caption">
-                <div class="product-ratting">
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star low-star"></i>
-                  <i class="far fa-star low-star"></i>
-                </div>
-                <h4><a href="#">Green Dress with details</a></h4>
-                <div class="price">
-                  <ul>
-                    <li>$40.00</li>
-                    <li class="discount">$60.00</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-6">
-            <div class="single-product mb-60">
-              <div class="product-img">
-                <img src="<?php echo  base_url('assets/landing-page/img/categori/product6.png') ; ?>" alt="" />
-                <div class="new-product">
-                  <span>New</span>
-                </div>
-              </div>
-              <div class="product-caption">
-                <div class="product-ratting">
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star low-star"></i>
-                  <i class="far fa-star low-star"></i>
-                </div>
-                <h4><a href="#">Green Dress with details</a></h4>
-                <div class="price">
-                  <ul>
-                    <li>$40.00</li>
-                    <li class="discount">$60.00</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+          <?php endforeach; ?>
         </div>
       </div>
       <!-- Card two -->
@@ -826,34 +654,4 @@ a:3:{s:4:"time";i:1624149998;s:3:"ttl";i:3600;s:4:"data";s:33298:"
     </div>
   </div>
 </div>
-<!-- Latest Offers End -->
-<!-- Shop Method Start-->
-<div class="shop-method-area section-padding30">
-  <div class="container">
-    <div class="row d-flex justify-content-between">
-      <div class="col-xl-3 col-lg-3 col-md-6">
-        <div class="single-method mb-40">
-          <i class="ti-package"></i>
-          <h6>Free Shipping Method</h6>
-          <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
-        </div>
-      </div>
-      <div class="col-xl-3 col-lg-3 col-md-6">
-        <div class="single-method mb-40">
-          <i class="ti-unlock"></i>
-          <h6>Secure Payment System</h6>
-          <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
-        </div>
-      </div>
-      <div class="col-xl-3 col-lg-3 col-md-6">
-        <div class="single-method mb-40">
-          <i class="ti-reload"></i>
-          <h6>Secure Payment System</h6>
-          <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Shop Method End-->
-";}
+<!-- Latest Offers End -->";}

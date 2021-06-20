@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ base_url('assets/landing-page/css/slick.css') }}" />
     <link rel="stylesheet" href="{{ base_url('assets/landing-page/css/nice-select.css') }}" />
     <link rel="stylesheet" href="{{ base_url('assets/landing-page/css/style.css') }}" />
+    <link href="{{ base_url('assets/admin/plugins/toaster/toastr.min.css') }}" rel="stylesheet" />
   </head>
   <body>
     <div id="preloader-active">
@@ -281,5 +282,6 @@
     <!-- Jquery Plugins, main Jquery -->
     <script src="{{ base_url('assets/landing-page/js/plugins.js') }}"></script>
     <script src="{{ base_url('assets/landing-page/js/main.js') }}"></script>
-  </body>
+    <script src="{{ base_url('assets/admin/plugins/toaster/toastr.min.js') }}"></script>
+</body>
 </html>

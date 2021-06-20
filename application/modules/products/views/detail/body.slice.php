@@ -55,6 +55,8 @@
       <div class="col-lg-8">
         <div
           class="single_product_text text-center"
+          id="produkDetail"
+          sepatu="{{ $sepatu['id_sepatu'] }}"
           harga="{{ $sepatu['harga'] }}"
         >
           <h3>{{ $sepatu["nama"] }}</h3>
@@ -63,24 +65,26 @@
             <div class="product_count_area">
               <p>Kuantitas</p>
               <div class="product_count d-inline-block">
-                <span class="product_count_item inumber-decrement">
-                  <i class="ti-minus"></i
-                ></span>
+                <span class="product_count_item" onclick="ubahKuantitas('tambah')">
+                  <i class="ti-minus"></i>
+                </span>
                 <input
                   class="product_count_item input-number"
                   type="text"
+                  id="kuantitasProduk"
                   value="1"
-                  min="0"
+                  min="1"
                   max="10"
+                  onchange="hitungTotalHarga()"
                 />
-                <span class="product_count_item number-increment">
-                  <i class="ti-plus"></i
-                ></span>
+                <span class="product_count_item" onclick="ubahKuantitas('kurang')">
+                  <i class="ti-plus"></i>
+                </span>
               </div>
               <p id="totalHarga">Rp. <span>{{ $sepatu['harga'] }}</span></p>
             </div>
             <div class="add_to_cart">
-              <a href="#" class="btn_3">TAMBAH KE KERANJANG</a>
+              <button type="button" onclick="tambahKeranjang(this)" api-add="{{ $api_add_keranjang }}" class="btn_3">TAMBAH KE KERANJANG</button>
             </div>
           </div>
         </div>
@@ -88,3 +92,48 @@
     </div>
   </div>
 </div>
+<script>
+function hitungTotalHarga(){
+  const hargaProduk = parseInt($("#produkDetail").attr("harga"));
+  const kuantitasProduk = parseInt($("#kuantitasProduk").val());
+
+  let totalHarga = hargaProduk * kuantitasProduk;
+  $("#totalHarga span").html(totalHarga);
+};
+
+function ubahKuantitas(type){
+  if(type == 'tambah'){
+
+  }
+}
+
+function tambahKeranjang(myNode){
+  myNode = $(myNode);
+  const idSepatu = $("#produkDetail").attr("sepatu");
+  const kuantitasProduk = parseInt($("#kuantitasProduk").val());
+
+  let formMethod = "POST";
+  let formAction = myNode.attr("api-add");
+  let formData = {
+    id_sepatu: idSepatu,
+    kuantitas: kuantitasProduk,
+  };
+
+  $.ajax({
+    type      : formMethod,
+    url       : formAction,
+    data      : formData,
+    dataType  : 'JSON',
+    success: function(response){
+      if (response.status) {
+        toastr.info("BERHASIL MENAMBAH KERANJANG");
+      } else {
+        toastr.warning(response.message);
+      }
+    },
+    error: function(response){
+      toastr.error('Maaf, terjadi kesalhan, silahkan cek konsol anda');
+    }
+  });
+};
+</script>

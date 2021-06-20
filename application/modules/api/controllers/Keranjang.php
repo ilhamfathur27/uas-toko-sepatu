@@ -65,12 +65,8 @@ class Keranjang extends API_WithoutAuth
 		eval(ac_input_variabel($v_input_list));
 
 		//| 	Auto Create Variable for Input Post ( Bulk )
-		$v_post_list = array('id_user','id_sepatu','kuantitas');
+		$v_post_list = array('id_sepatu','kuantitas');
 		eval(ac_input_post($v_post_list));
-		
-		//| 	Deklarasi Array $input untuk inject ke database
-		// $input['notification_id'] = id_generator(6);
-		$input['created_at'] = date_now();
 		
 		/*|=========================================================|
 		**| 	Jika ada pertanyaan :
@@ -81,25 +77,17 @@ class Keranjang extends API_WithoutAuth
 		**| 	untuk bulk otomatis dibawah 
 		**|=========================================================|*/
 
-		//| 	Kondisi input field user_id
-		if(!empty($post_input['user_id'])){
-			$input['user_id'] = $post_input['user_id'];
+		//| 	Kondisi input field id_sepatu
+		if(!empty($post_input['id_sepatu'])){
+			$input['id_sepatu'] = $post_input['id_sepatu'];
 		}
 		
-		//| 	Kondisi input field message
-		if(!empty($post_input['message'])){
-			$input['message'] = $post_input['message'];
+		//| 	Kondisi input field kuantitas
+		if(!empty($post_input['kuantitas'])){
+			$input['kuantitas'] = $post_input['kuantitas'];
 		}
 		
-		//| 	Kondisi input field read
-		if(!empty($post_input['read'])){
-			$input['read'] = boolean_input($post_input['read']);
-		}
-		
-		//| 	Kondisi input field link
-		if(!empty($post_input['link'])){
-			$input['link'] = $post_input['link'];
-		}
+		$input['id_user'] = user('id_user');
 
 		//| 	Membuat Kondisi Untuk RestFull API
 		switch ($type)
@@ -108,7 +96,7 @@ class Keranjang extends API_WithoutAuth
 			case 'detail':
 				$response_pagging = false;
 				if (!empty($param_id)){
-					$and_where['a.notification_id'] = $param_id;
+					$and_where['a.id_keranjang'] = $param_id;
 					$eksekusi_query_detail = $this->m_keranjang->detail($and_where);
 					if (is_array($eksekusi_query_detail)){
 						if (count($eksekusi_query_detail) > 0){
@@ -129,7 +117,7 @@ class Keranjang extends API_WithoutAuth
 				$response_result = false;
 				$cek_keberadaan_data = 0;
 				if (!empty($param_id)){
-					$and_where['a.notification_id'] = $param_id;
+					$and_where['a.id_keranjang'] = $param_id;
 					$cek_keberadaan_data = get_count($this->master_table, $and_where);
 				}
 				if ($cek_keberadaan_data > 0){
@@ -158,20 +146,24 @@ class Keranjang extends API_WithoutAuth
 				$response_error = true;
 				$response_pagging = false;
 				$response_result = false;
-				 
-				/*|=========================================================|
-				**| 	Validasi Input Create
-				**| 	
-				**| 	Catatan : 
-				**| 	Terkadang validasi Create beda dengan Update 
-				**|=========================================================|*/
-				$this->form_validation->set_rules($i_user_id, 'ID User', 'required|strip_tags|trim|max_length[100]');
-				$this->form_validation->set_rules($i_message, 'Message', 'required|strip_tags|trim|min_length[3]');
-				$this->form_validation->set_rules($i_read, 'Read', 'trim|in_list[0,1]');
-				$this->form_validation->set_rules($i_link, 'Link', 'required|valid_url|trim');
+				
+				$this->form_validation->set_rules($i_id_sepatu, 'Sepatu', 'required|strip_tags|trim|numeric');
+				$this->form_validation->set_rules($i_kuantitas, 'Kuantitas', 'required|strip_tags|trim|numeric');
 				
 				if($this->form_validation->run() == TRUE){ //| Jika inputan sesuai Peraturan Validasi
-					$create = $this->m_keranjang->create_data($input); //| Melakukan Input data
+					$create = false;
+					// Melakukan kondisi jika inputan sudah ada
+					$where_produk['id_sepatu'] = $input['id_sepatu'];
+					$cek_keberadaan_data = get_count($this->master_table, $where_produk);
+					if($cek_keberadaan_data > 0){
+						unset($input['id_user']);
+						unset($input['id_sepatu']);
+						$where_produk['id_user'] = user('id_user');
+						$create = $this->m_keranjang->update_data($input, $where_produk); //| Melakukan Update
+					}else{
+						$create = $this->m_keranjang->create_data($input); //| Melakukan Input data
+					}
+
 					if($create){
 						$api_status = TRUE;
 						$api_code = 201;
@@ -191,62 +183,13 @@ class Keranjang extends API_WithoutAuth
 					$api_error = $data_error;
 				}
 				break;
-        			
-      //    API RESPONSE - UPDATE DATA
-			case 'update':
-				$response_error = true;
-				$response_result = false;
-				$response_result = false;
 
-				//| 	Deklarasi field table yang tidak boleh di update
-				$fields = array('notification_id', 'created_at');
-				eval(not_update_field($fields));
-
-				/*|=========================================================|
-				**| 	Validasi Input Update
-				**| 	
-				**| 	Catatan : 
-				**| 	Terkadang validasi Update beda dengan Create 
-				**|=========================================================|*/
-				$this->form_validation->set_rules($i_user_id, 'ID User', 'strip_tags|trim|max_length[100]');
-				$this->form_validation->set_rules($i_message, 'Message', 'strip_tags|trim|min_length[3]');
-				$this->form_validation->set_rules($i_read, 'Read', 'trim|in_list[0,1]');
-				$this->form_validation->set_rules($i_link, 'Link', 'valid_url|trim');
-
-			 	if(!empty($param_id)){ //| Jika ID untuk Update tidak kosong, maka lakukan Code dibawah
-					if($this->form_validation->run() == TRUE){ //| Jika inputan sesuai Peraturan Validasi
-						$and_where['notification_id'] = $param_id; //| Where Untuk Update
-						$update = $this->m_keranjang->update_data($input, $and_where); //| Melakukan Update
-						if($update){
-							$api_status = TRUE;
-							$api_code = 200;
-							$api_message = "Update Success";
-						}else{
-							$api_code = 400;
-							$api_message = http_status_code($api_code);
-						}
-					}else{
-						$data_error = array();
-						$error_code = error_generator_v2($v_input_list); //| Membuat variable otomatis untuk error handler
-						
-						eval($error_code['variabel']);
-						eval($error_code['condition']);
-
-						$api_message = 'Mohon sesuaikan kolom yang anda input';
-						$api_error = $data_error;
-					}
-			 	}else{
-			 		$api_code = 400;
-			 		$api_message = http_status_code($api_code);
-			 	}
-
-				break;
 			//    API RESPONSE - MY DATA
 			case 'me':
 				$api_limit = $limit;
 				$api_offset = $offset;
         $api_page = $page;
-        $and_where['a.id_user'] = 1;
+        $and_where['a.id_user'] = user('id_uer');
 				$eksekusi_query = $this->m_keranjang->list($limit, $offset, $and_where, null, $search)->get()->result_array();
 				$api_total_data = $this->m_keranjang->total($and_where, null, $search);
         $api_total_page = jumlah_page($api_limit, $api_total_data);

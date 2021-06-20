@@ -20,10 +20,12 @@
             @foreach($data_sepatu as $sepatu)
             <div class="col-lg-6 col-sm-6">
                 <div class="single_product_item">
-                    <img src="{{ base_url('uploads/images/sepatu/'.$sepatu['foto']) }}" alt="" class="img-fluid">
-                    <h3>
-                        <a href="{{ site_url('products/detail/'.$sepatu['id_sepatu']) }}">{{ $sepatu['nama'] }}</a>
-                    </h3>
+                    <a href="{{ site_url('products/detail/'.$sepatu['id_sepatu']) }}">
+                        <img src="{{ base_url('uploads/images/sepatu/'.$sepatu['foto']) }}" alt="" class="img-fluid">
+                        <h3>
+                            {{ $sepatu['nama'] }}
+                        </h3>
+                    </a>
                     <p>Rp. {{ $sepatu['harga'] }}</p>
                 </div>
             </div>

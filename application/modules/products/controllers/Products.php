@@ -18,7 +18,9 @@ class Products extends MY_Controller {
     $and_where['a.id_sepatu'] = $id;
     $data_sepatu = $this->m_sepatu->detail($and_where);
     $data['title'] = "DETAIL SEPATU";
+    $data['id_sepatu'] = $id;
     $data['sepatu'] = isset($data_sepatu[0]) ? $data_sepatu[0] : $data_sepatu;
+    $data['api_add_keranjang'] = site_url('api/keranjang/create');
     
     $this->lp('detail/body', $data);  
   }

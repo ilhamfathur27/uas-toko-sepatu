@@ -1,4 +1,4 @@
-a:3:{s:4:"time";i:1624150872;s:3:"ttl";i:3600;s:4:"data";s:7419:"<div class="slider-area ">
+a:3:{s:4:"time";i:1624151244;s:3:"ttl";i:3600;s:4:"data";s:7479:"<div class="slider-area ">
   <!-- Mobile Menu -->
   <div class="single-slider slider-height2 d-flex align-items-center" data-background="<?php echo  base_url('assets/landing-page/img/hero/category.jpg'); ?>" style="background-image: url(&quot;assets/landing-page/img/hero/category.jpg&quot;);">
       <div class="container">
@@ -20,10 +20,12 @@ a:3:{s:4:"time";i:1624150872;s:3:"ttl";i:3600;s:4:"data";s:7419:"<div class="sli
             <?php foreach($data_sepatu as $sepatu): ?>
             <div class="col-lg-6 col-sm-6">
                 <div class="single_product_item">
-                    <img src="<?php echo  base_url('uploads/images/sepatu/'.$sepatu['foto']) ; ?>" alt="" class="img-fluid">
-                    <h3>
-                        <a href="<?php echo  site_url('products/detail/'.$sepatu['id_sepatu']) ; ?>"><?php echo  $sepatu['nama'] ; ?></a>
-                    </h3>
+                    <a href="<?php echo  site_url('products/detail/'.$sepatu['id_sepatu']) ; ?>">
+                        <img src="<?php echo  base_url('uploads/images/sepatu/'.$sepatu['foto']) ; ?>" alt="" class="img-fluid">
+                        <h3>
+                            <?php echo  $sepatu['nama'] ; ?>
+                        </h3>
+                    </a>
                     <p>Rp. <?php echo  $sepatu['harga'] ; ?></p>
                 </div>
             </div>
