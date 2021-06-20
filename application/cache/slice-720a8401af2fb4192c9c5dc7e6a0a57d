@@ -1,4 +1,4 @@
-a:3:{s:4:"time";i:1624153737;s:3:"ttl";i:3600;s:4:"data";s:4566:"<div class="slider-area">
+a:3:{s:4:"time";i:1624161312;s:3:"ttl";i:3600;s:4:"data";s:4566:"<div class="slider-area">
   <div
     class="single-slider slider-height2 d-flex align-items-center"
     data-background="<?php echo  base_url('assets/landing-page/img/hero/category.jpg'); ?>"

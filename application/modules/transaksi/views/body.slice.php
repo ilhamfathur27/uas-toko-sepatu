@@ -24,26 +24,34 @@
             </tr>
           </thead>
           <tbody>
-            @foreach($data_keranjang as $keranjang)
-            <tr>
-              <td class="text-left">
-                <h5>{{ $keranjang['nama_sepatu'] }}</h5>
-              </td>
-              <td>
-                <h5>Rp. {{ $keranjang['harga'] }}</h5>
-              </td>
-              <td>
-                <div class="product_count">
-                  <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                  <input class="input-number" type="text" value="{{ $keranjang['kuantitas'] }}" min="0" max="10">
-                  <span class="input-number-increment"> <i class="ti-plus"></i></span>
-                </div>
-              </td>
-              <td class="text-right">
-                <h5>Rp. {{ $keranjang['total_harga'] }}</h5>
-              </td>
-            </tr>
-            @endforeach
+            @if(empty($data_transaksi))
+              <tr>
+                <td colspan="4" class="text-center">TIDAK ADA TRANSAKSI</td>
+              </tr>
+            @else
+              @foreach($data_transaksi as $transaksi)
+              <tr>
+                <td class="text-left">
+                  <h5>{{ $transaksi['nama_sepatu'] }}</h5>
+                </td>
+                <td>
+                  <h5>Rp. {{ $transaksi['harga'] }}</h5>
+                </td>
+                <td>
+                  <div class="product_count">
+                    <span class="input-number-decrement"> <i class="ti-minus"></i></span>
+                    <input class="input-number" type="text" value="{{ $transaksi['kuantitas'] }}" min="0" max="10">
+                    <span class="input-number-increment"> <i class="ti-plus"></i></span>
+                  </div>
+                </td>
+                <td class="text-right">
+                  <div>
+                    <span class="badge badge-danger">BELUM BAYAR</span>
+                  </div>
+                </td>
+              </tr>
+              @endforeach
+            @endif
           </tbody>
         </table>
       </div>

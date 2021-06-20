@@ -1,0 +1,38 @@
+a:3:{s:4:"time";i:1624164039;s:3:"ttl";i:3600;s:4:"data";s:1510:"<div class="card card-default">
+    <div class="card-header card-header-border-bottom">
+        <h2>LIST SEPATU</h2>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Harga</th>
+                    <th scope="col">Stok</th>
+                    <th scope="col" width="200px">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    $urutan = 1;
+                ?>
+                <?php foreach($data_sepatu as $sepatu): ?>
+                    <tr>
+                        <td scope="row"><?php echo  $urutan ; ?></td>
+                        <td><?php echo  $sepatu['nama'] ; ?></td>
+                        <td><?php echo  $sepatu['harga'] ; ?></td>
+                        <td><?php echo  $sepatu['stok'] ; ?></td>
+                        <td>
+                            <a href="<?php echo  site_url("sepatu/edit/".$sepatu['id_sepatu']) ; ?>" class="btn btn-sm btn-primary">EDIT</a>
+                            <button type="button" class="btn btn-sm btn-danger">DELETE</button>
+                        </td>
+                    </tr>
+                    <?php
+                        $urutan++;
+                    ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>";}

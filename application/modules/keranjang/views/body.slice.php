@@ -24,15 +24,25 @@
             </tr>
           </thead>
           <tbody>
+            @php
+              $subtotal = 0;
+            @endphp
             @foreach($data_keranjang as $keranjang)
+            @php
+              $subtotal += $keranjang['total_harga'];
+            @endphp
             <tr>
               <td style="width: 730px">
                 <div class="media">
                   <div class="d-flex">
-                    <img src="{{ base_url('uploads/images/sepatu/'.$keranjang['foto']) }}" width="100px" alt="">
+                    <a href="{{ site_url('products/detail/'.$keranjang['id_sepatu']) }}">
+                      <img src="{{ base_url('uploads/images/sepatu/'.$keranjang['foto']) }}" width="100px" alt="">
+                    </a>
                   </div>
                   <div class="media-body">
-                    <p>{{ $keranjang['nama_sepatu'] }}</p>
+                    <a href="{{ site_url('products/detail/'.$keranjang['id_sepatu']) }}">
+                      <p>{{ $keranjang['nama_sepatu'] }}</p>
+                    </a>
                   </div>
                 </div>
               </td>
@@ -40,11 +50,7 @@
                 <h5>Rp. {{ $keranjang['harga'] }}</h5>
               </td>
               <td>
-                <div class="product_count">
-                  <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                  <input class="input-number" type="text" value="{{ $keranjang['kuantitas'] }}" min="0" max="10">
-                  <span class="input-number-increment"> <i class="ti-plus"></i></span>
-                </div>
+                <h4>{{ $keranjang['kuantitas'] }}</h4>
               </td>
               <td class="text-right">
                 <h5>Rp. {{ $keranjang['total_harga'] }}</h5>
@@ -58,7 +64,7 @@
                 <h5>Subtotal</h5>
               </td>
               <td class="text-right">
-                <h5>Rp. {{ "5000" }}</h5>
+                <h5>Rp. {{ $subtotal }}</h5>
               </td>
             </tr>
           </tbody>
@@ -75,19 +81,35 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">CHECKOUT PRODUK</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
-        <button type="submit" class="btn btn-primary">PROCESS CHECKOUT</button>
-      </div>
+      <form method="POST" action="{{ $api_checkout }}">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">CHECKOUT PRODUK</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Kota</label>
+            <input type="text" class="form-control" name="kota" aria-describedby="kotaHelp" placeholder="Kota">
+            <small id="kotaHelp" class="form-text text-muted text-danger"></small>
+          </div>
+          <div class="form-group">
+            <label>Kecamatan</label>
+            <input type="text" class="form-control" name="kecamatan" aria-describedby="kecamatanHelp" placeholder="Kecamatan">
+            <small id="kecamatanHelp" class="form-text text-muted text-danger"></small>
+          </div>
+          <div class="form-group">
+            <label>Alamat</label>
+            <textarea class="form-control" name="alamat" aria-describedby="alamatHelp" placeholder="Alamat"></textarea>
+            <small id="alamatHelp" class="form-text text-muted text-danger"></small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">CANCEL</button>
+          <button type="submit" class="btn btn-primary">PROCESS CHECKOUT</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

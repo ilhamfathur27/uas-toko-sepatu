@@ -1,4 +1,4 @@
-a:3:{s:4:"time";i:1624159173;s:3:"ttl";i:3600;s:4:"data";s:2037:"<div class="slider-area ">
+a:3:{s:4:"time";i:1624160720;s:3:"ttl";i:3600;s:4:"data";s:2352:"<div class="slider-area ">
   <div class="single-slider slider-height2 d-flex align-items-center" data-background="<?php echo  base_url('assets/landing-page/img/hero/category.jpg'); ?>" style="background-image: url(&quot;assets/landing-page/img/hero/category.jpg&quot;);">
       <div class="container">
           <div class="row">
@@ -24,26 +24,34 @@ a:3:{s:4:"time";i:1624159173;s:3:"ttl";i:3600;s:4:"data";s:2037:"<div class="sli
             </tr>
           </thead>
           <tbody>
-            <?php foreach($data_keranjang as $keranjang): ?>
-            <tr>
-              <td class="text-left">
-                <h5><?php echo  $keranjang['nama_sepatu'] ; ?></h5>
-              </td>
-              <td>
-                <h5>Rp. <?php echo  $keranjang['harga'] ; ?></h5>
-              </td>
-              <td>
-                <div class="product_count">
-                  <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                  <input class="input-number" type="text" value="<?php echo  $keranjang['kuantitas'] ; ?>" min="0" max="10">
-                  <span class="input-number-increment"> <i class="ti-plus"></i></span>
-                </div>
-              </td>
-              <td class="text-right">
-                <h5>Rp. <?php echo  $keranjang['total_harga'] ; ?></h5>
-              </td>
-            </tr>
-            <?php endforeach; ?>
+            <?php if(empty($data_transaksi)): ?>
+              <tr>
+                <td colspan="4" class="text-center">TIDAK ADA TRANSAKSI</td>
+              </tr>
+            <?php else: ?>
+              <?php foreach($data_transaksi as $transaksi): ?>
+              <tr>
+                <td class="text-left">
+                  <h5><?php echo  $transaksi['nama_sepatu'] ; ?></h5>
+                </td>
+                <td>
+                  <h5>Rp. <?php echo  $transaksi['harga'] ; ?></h5>
+                </td>
+                <td>
+                  <div class="product_count">
+                    <span class="input-number-decrement"> <i class="ti-minus"></i></span>
+                    <input class="input-number" type="text" value="<?php echo  $transaksi['kuantitas'] ; ?>" min="0" max="10">
+                    <span class="input-number-increment"> <i class="ti-plus"></i></span>
+                  </div>
+                </td>
+                <td class="text-right">
+                  <div>
+                    <span class="badge badge-danger">BELUM BAYAR</span>
+                  </div>
+                </td>
+              </tr>
+              <?php endforeach; ?>
+            <?php endif; ?>
           </tbody>
         </table>
       </div>

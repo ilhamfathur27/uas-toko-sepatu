@@ -30,7 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends API_Controller 
 {
-	private $master_table = 'ttc_r_notifications';
+	private $master_table = 'transaksi';
 	function __construct()
 	{
 		parent::__construct();
