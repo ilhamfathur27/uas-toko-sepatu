@@ -199,14 +199,11 @@ class Sepatu extends API_Controller
 				break;
         
       //    API RESPONSE - UPDATE DATA
-			case 'update':
+			case 'edit':
 				$response_error = true;
 				$response_result = false;
 				$response_result = false;
 
-				//| 	Deklarasi field table yang tidak boleh di update
-				$fields = array('notification_id', 'created_at');
-				eval(not_update_field($fields));
 
 				/*|=========================================================|
 				**| 	Validasi Input Update
@@ -214,14 +211,20 @@ class Sepatu extends API_Controller
 				**| 	Catatan : 
 				**| 	Terkadang validasi Update beda dengan Create 
 				**|=========================================================|*/
-				$this->form_validation->set_rules($i_user_id, 'ID User', 'strip_tags|trim|max_length[100]');
-				$this->form_validation->set_rules($i_message, 'Message', 'strip_tags|trim|min_length[3]');
-				$this->form_validation->set_rules($i_read, 'Read', 'trim|in_list[0,1]');
-				$this->form_validation->set_rules($i_link, 'Link', 'valid_url|trim');
-
+				$this->form_validation->set_rules($i_nama, 'Nama Sepatu', 'required|strip_tags|trim|max_length[200]');
+				$this->form_validation->set_rules($i_harga, 'Harga', 'required|strip_tags|trim|numeric|max_length[100]');
+				$this->form_validation->set_rules($i_deskripsi, 'Deskripsi', 'required|strip_tags|trim|max_length[100]');
+				$this->form_validation->set_rules($i_stok, 'Stok', 'required|strip_tags|trim|numeric');
+				
 			 	if(!empty($param_id)){ //| Jika ID untuk Update tidak kosong, maka lakukan Code dibawah
-					if($this->form_validation->run() == TRUE){ //| Jika inputan sesuai Peraturan Validasi
-						$and_where['notification_id'] = $param_id; //| Where Untuk Update
+					$upload_thumbnail	= $this->attach_model->attach_thumbnail($i_foto);
+					if($this->form_validation->run()){ //| Jika inputan sesuai Peraturan Validasi
+						$upload_thumbnail	= $this->attach_model->attach_thumbnail($i_foto);
+						if($upload_thumbnail[0]){
+							$input['foto'] = $upload_thumbnail[1];
+						}
+
+						$and_where['id_sepatu'] = $param_id; //| Where Untuk Update
 						$update = $this->m_sepatu->update_data($input, $and_where); //| Melakukan Update
 						if($update){
 							$api_status = TRUE;
@@ -300,9 +303,9 @@ class Sepatu extends API_Controller
 		$this->index('create');
 	}
 
-	function update($id = '')
+	function edit($id = '')
   {
-		$this->index('update', $id);
+		$this->index('edit', $id);
 	}
 
   function _translate_detail($list_data)

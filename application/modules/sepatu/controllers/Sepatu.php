@@ -33,7 +33,7 @@ class Sepatu extends MY_Controller
     $detail_sepatu = $this->m_sepatu->detail($where);
     $data['title'] = "EDIT SEPATU";
     $data['id_sepatu'] = "EDIT SEPATU";
-    $data['api_sepatu'] = site_url("api/sepatu/edit");
+    $data['api_sepatu'] = site_url("api/sepatu/edit/".$id_sepatu);
     $data['sepatu'] = isset($detail_sepatu[0]) ? $detail_sepatu[0] : $detail_sepatu;
     $this->admin('edit/body', $data);
   }

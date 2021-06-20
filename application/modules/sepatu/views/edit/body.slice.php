@@ -57,8 +57,7 @@ $("#formSepatu").submit(function(event){
     success       : function(response){
       if (response.status) {
         toastr.info(response.message);
-        myNode.find(`span.input-message`).html();
-        myNode[0].reset();
+        window.history.back();
       } else {
         toastr.warning(response.message);
         const errorData = response.error;
