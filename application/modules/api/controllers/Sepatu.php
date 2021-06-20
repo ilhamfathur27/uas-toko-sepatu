@@ -129,7 +129,7 @@ class Sepatu extends API_Controller
 				$response_result = false;
 				$cek_keberadaan_data = 0;
 				if (!empty($param_id)){
-					$and_where['a.notification_id'] = $param_id;
+					$and_where['id_sepatu'] = $param_id;
 					$cek_keberadaan_data = get_count($this->master_table, $and_where);
 				}
 				if ($cek_keberadaan_data > 0){

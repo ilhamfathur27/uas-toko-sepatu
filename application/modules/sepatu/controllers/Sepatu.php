@@ -16,6 +16,8 @@ class Sepatu extends MY_Controller
     $data_sepatu = $this->m_sepatu->list(20, 0, null, null, $keyword)->get()->result_array();
     $data['title'] = "LIST SEPATU";
     $data['data_sepatu'] = $data_sepatu;
+    $data['api_delete'] = base_url("api/sepatu/delete");
+    $data['api_list'] = site_url("api/sepatu");
     $this->admin('list/body', $data);
   }
 
